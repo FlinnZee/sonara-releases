@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Downloading sonara</title>
+    <meta name="theme-color" content="#07070c" />
+    <link rel="icon" href="icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;500&family=Archivo:wdth,wght@75..125,400..600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="nav">
+      <a class="brand" href="./" aria-label="sonara home">
+        <img src="icon.png" alt="" width="28" height="28" />
+        <span>sonara</span>
+      </a>
+    </header>
+    <main class="dl">
+      <div>
+        <div class="pulse"><img src="icon.png" alt="" /></div>
+        <h1 data-title>Getting sonara ready…</h1>
+        <p data-status>Finding the latest version.</p>
+        <div class="steps">
+          <div><strong>1. Open the installer</strong>It's in your Downloads folder.</div>
+          <div><strong>2. Allow it</strong>If Windows shows a blue SmartScreen box, choose More info, then Run anyway.</div>
+          <div><strong>3. Play</strong>The first launch sets itself up in about a minute. Nothing else to install.</div>
+        </div>
+        <p class="again" data-again hidden>Didn't start? <a data-link href="#">Download it directly</a>.</p>
+      </div>
+    </main>
+    <script>
+      ;(() => {
+        const title = document.querySelector('[data-title]')
+        const status = document.querySelector('[data-status]')
+        const again = document.querySelector('[data-again]')
+        const link = document.querySelector('[data-link]')
+        const fallback = 'https://github.com/FlinnZee/sonara-releases/releases/latest'
+        const start = (url, text) => {
+          link.href = url
+          title.textContent = 'Your download is starting.'
+          status.textContent = text
+          again.hidden = false
+          location.href = url
+        }
+        fetch('https://api.github.com/repos/FlinnZee/sonara-releases/releases/latest')
+          .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+          .then((rel) => {
+            const asset = rel.assets.find((a) => a.name.endsWith('-setup.exe'))
+            if (!asset) throw new Error('no installer')
+            const mb = Math.round(asset.size / 1048576)
+            start(asset.browser_download_url, `sonara ${rel.tag_name.replace(/^v/, '')} for Windows, ${mb} MB.`)
+          })
+          .catch(() => {
+            title.textContent = 'Almost there.'
+            status.textContent = "We couldn't reach the download server just now."
+            link.href = fallback
+            link.textContent = 'Open the download'
+            again.hidden = false
+          })
+      })()
+    </script>
+  </body>
+</html>
