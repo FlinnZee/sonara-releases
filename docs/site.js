@@ -1,121 +1,156 @@
-// sonara site: the page re-tints to each style the hero shows, a sonar sweep runs behind
-// the headline, and the latest release's version is read from GitHub.
+// sonara website: live numbers from GitHub, the style switcher, the EQ demo,
+// the playlist-link typing demo, the maker's full name, and quiet reveals.
 ;(() => {
-  const STYLES = [
-    ['999', 'style-999.jpg', '#8b5cf6'],
-    ['Pin-up Cinema', 'style-pinup.jpg', '#e0607a'],
-    ['Ritual', 'style-ritual.jpg', '#e0893a'],
-    ['Moonlit', 'style-moonlit.jpg', '#8fb0ff'],
-    ['Neon Cult', 'style-neon-cult.jpg', '#ff3ea5'],
-    ['Goodbye & Good Riddance', 'style-gbgr.jpg', '#4a90ff'],
-    ['Sundown', 'style-sundown.jpg', '#ff6ad5'],
-    ['Frost', 'style-frost.jpg', '#9fd8ff']
-  ]
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
-  const root = document.documentElement
+  const RELEASES = 'https://api.github.com/repos/FlinnZee/sonara-releases/releases'
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
 
-  // ---------------------------------------------------------------- hero slideshow
-  const cur = document.querySelector('[data-slide]')
-  const next = document.querySelector('[data-slide-next]')
-  const label = document.querySelector('[data-style-name]')
-  const thumbs = [...document.querySelectorAll('[data-pick]')]
+  // ---------------------------------------------------------------- numbers
+  const countUp = (el, to) => {
+    if (reduced) {
+      el.textContent = to.toLocaleString('en-US')
+      return
+    }
+    const start = performance.now()
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / 1400)
+      el.textContent = Math.round(to * (1 - Math.pow(1 - t, 3))).toLocaleString('en-US')
+      if (t < 1) requestAnimationFrame(tick)
+    }
+    requestAnimationFrame(tick)
+  }
+
+  fetch(`${RELEASES}?per_page=100`)
+    .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+    .then((releases) => {
+      const downloads = releases
+        .flatMap((rel) => rel.assets)
+        .filter((a) => /\.(exe|zip)$/i.test(a.name))
+        .reduce((sum, a) => sum + a.download_count, 0)
+      // Shown once it means something
+      const counter = document.querySelector('[data-downloads]')
+      if (counter && downloads >= 500) {
+        counter.closest('div').hidden = false
+        countUp(counter, downloads)
+      }
+      const latest = releases.find((rel) => !rel.draft && !rel.prerelease)
+      if (!latest) return
+      const version = latest.tag_name.replace(/^v/, '')
+      const meta = document.querySelector('[data-version]')
+      if (meta) meta.textContent = `Version ${version} for Windows 10 and 11. Free, with everything it needs inside the installer.`
+      const zip = latest.assets.find((a) => /\.zip$/i.test(a.name))
+      const portable = document.querySelector('[data-portable]')
+      if (portable && zip) portable.href = zip.browser_download_url
+    })
+    .catch(() => undefined)
+
+  // ---------------------------------------------------------------- styles
+  const section = document.querySelector('.styles')
+  const tabs = [...document.querySelectorAll('.style-picker [role="tab"]')]
+  const current = document.querySelector('[data-style-img]')
+  const next = document.querySelector('[data-style-next]')
   let index = 0
   let timer = 0
-  for (const [, file] of STYLES) new Image().src = `assets/${file}`
-
-  function show(i) {
-    index = (i + STYLES.length) % STYLES.length
-    const [name, file, color] = STYLES[index]
-    next.src = `assets/${file}`
-    next.alt = `sonara playing in the ${name} style`
-    next.style.opacity = '1'
-    setTimeout(() => {
-      cur.src = next.src
-      cur.alt = next.alt
-      next.style.opacity = '0'
-    }, reduce ? 0 : 900)
-    label.textContent = name
-    root.style.setProperty('--accent', color)
-    thumbs.forEach((t, j) => t.setAttribute('aria-current', String(j === index)))
+  const show = (i) => {
+    const tab = tabs[i]
+    if (!tab || i === index) return
+    index = i
+    tabs.forEach((t) => t.setAttribute('aria-selected', String(t === tab)))
+    section.style.setProperty('--style-accent', tab.dataset.color)
+    next.src = tab.dataset.src
+    next.alt = tab.dataset.alt
+    next.decode().catch(() => undefined).then(() => {
+      next.style.opacity = '1'
+      setTimeout(() => {
+        current.src = next.src
+        current.alt = next.alt
+        next.style.transition = 'none'
+        next.style.opacity = '0'
+        requestAnimationFrame(() => (next.style.transition = ''))
+      }, 720)
+    })
   }
-  function schedule() {
+  const auto = () => {
     clearInterval(timer)
-    if (!reduce) timer = setInterval(() => show(index + 1), 3600)
+    if (!reduced) timer = setInterval(() => show((index + 1) % tabs.length), 4200)
   }
-  thumbs.forEach((t) =>
-    t.addEventListener('click', () => {
-      show(Number(t.dataset.pick))
-      schedule()
-      document.querySelector('.hero').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' })
+  tabs.forEach((tab, i) =>
+    tab.addEventListener('click', () => {
+      show(i)
+      auto()
     })
   )
-  show(0)
-  schedule()
+  section?.addEventListener('pointerenter', () => clearInterval(timer))
+  section?.addEventListener('pointerleave', auto)
+  // Warm the other screenshots once the page is idle
+  setTimeout(() => tabs.forEach((t) => (new Image().src = t.dataset.src)), 1500)
+  auto()
 
-  // ---------------------------------------------------------------- sonar sweep
-  const canvas = document.querySelector('.sonar')
-  const g = canvas.getContext('2d')
-  let w = 0
-  let h = 0
-  const resize = () => {
-    const dpr = Math.min(devicePixelRatio || 1, 2)
-    w = canvas.clientWidth
-    h = canvas.clientHeight
-    canvas.width = w * dpr
-    canvas.height = h * dpr
-    g.setTransform(dpr, 0, 0, dpr, 0, 0)
-  }
-  new ResizeObserver(resize).observe(canvas)
-  resize()
-  let angle = -Math.PI / 4
-  let last = performance.now()
-  function frame(now) {
-    const dt = Math.min(0.05, (now - last) / 1000)
-    last = now
-    angle += dt * 0.5
-    const accent = getComputedStyle(root).getPropertyValue('--accent').trim() || '#8b5cf6'
-    const cx = w * 0.28
-    const cy = h * 0.5
-    const R = Math.max(w, h) * 0.75
-    g.clearRect(0, 0, w, h)
-    g.lineWidth = 1
-    for (let r = 120; r < R; r += 120) {
-      g.strokeStyle = `rgba(34, 225, 255, ${0.07 * (1 - r / R)})`
-      g.beginPath()
-      g.arc(cx, cy, r, 0, Math.PI * 2)
-      g.stroke()
+  // ---------------------------------------------------------------- equalizer
+  const bars = [...document.querySelectorAll('.eq span')]
+  const setEq = (values) => values.forEach((db, i) => bars[i] && (bars[i].style.height = `${50 + db * 3.6}%`))
+  document.querySelectorAll('.presets [role="radio"]').forEach((button, _, all) =>
+    button.addEventListener('click', () => {
+      all.forEach((b) => b.setAttribute('aria-checked', String(b === button)))
+      setEq(button.dataset.eq.split(',').map(Number))
+    })
+  )
+  setEq([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+
+  // ---------------------------------------------------------------- typing demo
+  const typed = document.querySelector('[data-typed]')
+  const links = [
+    'open.spotify.com/playlist/37i9dQZF1DX…',
+    'music.apple.com/us/playlist/todays-hits…',
+    'soundcloud.com/lofi-girl/sets/sleep…'
+  ]
+  if (typed) {
+    if (reduced) typed.textContent = links[0]
+    else {
+      let li = 0
+      let ci = 0
+      let deleting = false
+      const step = () => {
+        const text = links[li]
+        ci += deleting ? -1 : 1
+        typed.textContent = text.slice(0, ci)
+        let wait = deleting ? 22 : 55
+        if (!deleting && ci === text.length) {
+          deleting = true
+          wait = 1800
+        } else if (deleting && ci === 0) {
+          deleting = false
+          li = (li + 1) % links.length
+          wait = 400
+        }
+        setTimeout(step, wait)
+      }
+      step()
     }
-    const sweep = g.createConicGradient(angle - 1.1, cx, cy)
-    sweep.addColorStop(0, 'transparent')
-    sweep.addColorStop(0.17, `color-mix(in oklch, ${accent} 22%, transparent)`)
-    sweep.addColorStop(0.175, 'transparent')
-    sweep.addColorStop(1, 'transparent')
-    g.fillStyle = sweep
-    g.fillRect(0, 0, w, h)
-    const fade = g.createRadialGradient(cx, cy, 0, cx, cy, R)
-    fade.addColorStop(0, 'rgba(7, 7, 12, 0)')
-    fade.addColorStop(1, 'rgba(7, 7, 12, 1)')
-    g.fillStyle = fade
-    g.fillRect(0, 0, w, h)
-    if (!reduce && !document.hidden) requestAnimationFrame(frame)
   }
-  requestAnimationFrame(frame)
-  document.addEventListener('visibilitychange', () => {
-    if (!document.hidden && !reduce) {
-      last = performance.now()
-      requestAnimationFrame(frame)
-    }
+
+  // ---------------------------------------------------------------- the maker's name
+  const who = document.querySelector('[data-who]')
+  who?.addEventListener('click', () => {
+    who.classList.toggle('full')
+    who.setAttribute('aria-label', who.classList.contains('full') ? 'Theekshana Nirmal (NiMAA)' : 'NiMAA, press for the full name')
   })
 
-  // ---------------------------------------------------------------- latest version
-  fetch('https://api.github.com/repos/FlinnZee/sonara-releases/releases/latest')
-    .then((r) => (r.ok ? r.json() : null))
-    .then((rel) => {
-      const asset = rel?.assets?.find((a) => a.name.endsWith('-setup.exe'))
-      const meta = document.querySelector('[data-release]')
-      if (!asset || !meta) return
-      const mb = Math.round(asset.size / 1048576)
-      meta.textContent = `Free for Windows 10 and 11. Version ${rel.tag_name.replace(/^v/, '')}, ${mb} MB, everything included.`
+  // ---------------------------------------------------------------- reveals
+  const blocks = document.querySelectorAll('.section-head, .style-stage, .sound > *, .tile, .maker > *, .dl-card, .faq details')
+  if (!reduced && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return
+          e.target.classList.add('in')
+          io.unobserve(e.target)
+        }),
+      { rootMargin: '0px 0px -8% 0px' }
+    )
+    blocks.forEach((b, i) => {
+      b.classList.add('reveal')
+      b.style.transitionDelay = `${(i % 3) * 70}ms`
+      io.observe(b)
     })
-    .catch(() => {})
+  }
 })()

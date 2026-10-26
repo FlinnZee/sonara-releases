@@ -4,12 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Downloading sonara</title>
-    <meta name="theme-color" content="#07070c" />
+    <meta name="theme-color" content="#f6f6f9" />
     <link rel="icon" href="icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;500&family=Archivo:wdth,wght@75..125,400..600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400..800&family=Unbounded:wght@500&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
@@ -17,21 +17,40 @@
   <body>
     <header class="nav">
       <a class="brand" href="./" aria-label="sonara home">
-        <img src="icon.png" alt="" width="28" height="28" />
+        <svg class="mark" viewBox="0 0 1024 1024" aria-hidden="true">
+          <circle cx="470" cy="554" r="214" />
+          <path d="M852.5 376.9A356 356 0 1 1 647.4 171.5" />
+          <circle class="dot" cx="420" cy="604" r="98" />
+        </svg>
         <span>sonara</span>
       </a>
+      <a class="btn btn-line btn-small" href="./">Back to the site</a>
     </header>
-    <main class="dl">
+    <main class="dl-page">
       <div>
-        <div class="pulse"><img src="icon.png" alt="" /></div>
-        <h1 data-title>Getting sonara ready…</h1>
-        <p data-status>Finding the latest version.</p>
-        <div class="steps">
-          <div><strong>1. Open the installer</strong>It's in your Downloads folder.</div>
-          <div><strong>2. Allow it</strong>If Windows shows a blue SmartScreen box, choose More info, then Run anyway.</div>
-          <div><strong>3. Play</strong>The first launch sets itself up in about a minute. Nothing else to install.</div>
+        <div class="hero-mark" aria-hidden="true">
+          <span class="ping"></span>
+          <span class="ping"></span>
+          <svg viewBox="0 0 1024 1024">
+            <defs>
+              <linearGradient id="ink" x1="160" y1="900" x2="900" y2="120" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#5b3df5" />
+                <stop offset="1" stop-color="#2fd3e6" />
+              </linearGradient>
+            </defs>
+            <circle class="inner" cx="470" cy="554" r="214" />
+            <path class="outer" d="M852.5 376.9A356 356 0 1 1 647.4 171.5" />
+            <circle class="dot" cx="420" cy="604" r="98" />
+          </svg>
         </div>
-        <p class="again" data-again hidden>Didn't start? <a data-link href="#">Download it directly</a>.</p>
+        <h1 data-title>Getting sonara ready…</h1>
+        <p class="status" data-status>Finding the latest version.</p>
+        <div class="steps">
+          <div><strong>Open the installer</strong>It’s in your Downloads folder.</div>
+          <div><strong>Allow it</strong>If Windows shows a blue SmartScreen box, choose More info, then Run anyway.</div>
+          <div><strong>Press play</strong>The first launch sets itself up in about a minute. Nothing else to install.</div>
+        </div>
+        <p class="again" data-again hidden>Didn’t start? <a class="text-link" data-link href="#">Download it directly</a>.</p>
       </div>
     </main>
     <script>
@@ -58,7 +77,7 @@
           })
           .catch(() => {
             title.textContent = 'Almost there.'
-            status.textContent = "We couldn't reach the download server just now."
+            status.textContent = 'The download server didn’t answer just now.'
             link.href = fallback
             link.textContent = 'Open the download'
             again.hidden = false

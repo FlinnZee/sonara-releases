@@ -3,24 +3,24 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>sonara: every song gets its own world</title>
+    <title>sonara, the music player that gives every song its own world</title>
     <meta
       name="description"
-      content="A free music player for Windows. Word-synced lyrics, living backgrounds that hit with the beat, and a look that changes to fit whatever you play."
+      content="A free music player for Windows. YouTube Music, YouTube, SoundCloud and your own files in one app, lyrics with a living look for every song, downloads in any format and a sound you can shape."
     />
     <meta property="og:title" content="sonara" />
-    <meta property="og:description" content="Every song gets its own world. A free music player for Windows." />
-    <meta property="og:image" content="assets/style-999.jpg" />
-    <meta name="theme-color" content="#07070c" />
+    <meta property="og:description" content="The music player that gives every song its own world. Free for Windows." />
+    <meta property="og:image" content="assets/app-home.jpg" />
+    <meta name="theme-color" content="#f6f6f9" />
     <link rel="icon" href="icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;500;700&family=Archivo:wdth,wght@75..125,400..600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@400..800&family=Unbounded:wght@500&display=swap"
       rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Saira:ital,wdth,wght@1,75,800&family=Bodoni+Moda:ital,wght@1,600&family=Grenze+Gotisch:wght@500&family=Playfair+Display:ital,wght@1,500&family=Chakra+Petch:wght@600&family=Caveat:wght@700&family=Tilt+Warp&family=Cinzel:wght@500&family=Silkscreen&family=Young+Serif&family=Cormorant+Garamond:ital,wght@1,500&family=Anybody:wdth,wght@140,300&family=Big+Shoulders+Display:wght@800&family=Instrument+Serif:ital@1&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Saira:ital,wdth,wght@1,75,800&family=Anton&family=Tilt+Neon&family=Fraunces:wght@500&family=Bodoni+Moda:ital,wght@1,600&family=Sora:wght@200&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
@@ -28,156 +28,259 @@
   <body>
     <header class="nav">
       <a class="brand" href="#top" aria-label="sonara home">
-        <img src="icon.png" alt="" width="28" height="28" />
+        <svg class="mark" viewBox="0 0 1024 1024" aria-hidden="true">
+          <circle cx="470" cy="554" r="214" />
+          <path d="M852.5 376.9A356 356 0 1 1 647.4 171.5" />
+          <circle class="dot" cx="420" cy="604" r="98" />
+        </svg>
         <span>sonara</span>
       </a>
       <nav aria-label="Sections">
         <a href="#styles">Styles</a>
+        <a href="#sound">Sound</a>
         <a href="#features">Features</a>
-        <a href="#wrapped">Wrapped</a>
+        <a href="#maker">Maker</a>
+        <a href="#faq">FAQ</a>
       </nav>
-      <a class="btn btn-small" href="download.html">Download</a>
+      <a class="btn btn-ink btn-small" href="download.html">Download</a>
     </header>
 
     <main id="top">
       <section class="hero">
-        <canvas class="sonar" aria-hidden="true"></canvas>
-        <h1>Every song gets <br />its own world.</h1>
         <div class="hero-copy">
-          <p class="lead">
-            sonara is a free music player for Windows. Lyrics that follow every word, backgrounds that
-            hit with the beat, and a whole look that changes to fit what you play.
-          </p>
+          <div class="hero-mark" aria-hidden="true">
+            <span class="ping"></span>
+            <span class="ping"></span>
+            <svg viewBox="0 0 1024 1024">
+              <defs>
+                <linearGradient id="ink" x1="160" y1="900" x2="900" y2="120" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" stop-color="#5b3df5" />
+                  <stop offset="1" stop-color="#2fd3e6" />
+                </linearGradient>
+              </defs>
+              <circle class="inner" cx="470" cy="554" r="214" />
+              <path class="outer" d="M852.5 376.9A356 356 0 1 1 647.4 171.5" />
+              <circle class="dot" cx="420" cy="604" r="98" />
+            </svg>
+          </div>
+          <h1 class="wordmark">sonara</h1>
+          <p class="lead">The music player that gives every song its own world.</p>
           <div class="cta">
-            <a class="btn" href="download.html">
-              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4a1 1 0 0 1 1-1Zm-8 15a1 1 0 0 1 1 1v1h14v-1a1 1 0 1 1 2 0v2a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1Z"/></svg>
+            <a class="btn btn-ink" href="download.html">
+              <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 5.5 10 4.5v7H3zm0 13 7 1v-7H3zm8-14.1L21 3v8.5H11zm0 15.2L21 21v-8.5H11z"/></svg>
               Download for Windows
             </a>
-            <p class="meta" data-release>Free for Windows 10 and 11. Everything it needs is inside the installer.</p>
+            <a class="text-link" href="#features">What’s new in 2.0</a>
+            <a class="text-link" href="https://github.com/FlinnZee/sonara-releases/releases">All releases</a>
           </div>
+          <p class="meta" data-version>Free for Windows 10 and 11. Everything it needs is inside the installer.</p>
+          <dl class="stats">
+            <div data-downloads-stat hidden><dt data-downloads>0</dt><dd>downloads</dd></div>
+            <div><dt>29</dt><dd>lyrics styles</dd></div>
+            <div><dt>4</dt><dd>places to play from</dd></div>
+            <div><dt>6</dt><dd>download formats</dd></div>
+          </dl>
         </div>
-        <figure class="hero-shot">
-          <div class="frame">
-            <img data-slide src="assets/style-999.jpg" alt="sonara playing in the 999 style: a purple storm behind the music" />
-            <img data-slide-next alt="" />
+        <figure class="laptop" aria-label="sonara on a laptop">
+          <div class="lid">
+            <img src="assets/app-home.jpg" alt="sonara’s Home: a greeting, your playlists, mixes made for you and songs to jump back into" />
           </div>
-          <figcaption>Now showing <strong data-style-name>999</strong></figcaption>
+          <div class="deck"></div>
         </figure>
       </section>
 
-      <section id="styles" class="styles" aria-label="Styles">
-        <div class="marquee" aria-hidden="true">
-          <div class="track">
-            <span style="font-family: Saira; font-style: italic; font-weight: 800; font-stretch: 75%">999</span>
-            <span style="font-family: 'Bodoni Moda'; font-style: italic; font-weight: 600">Pin-up Cinema</span>
-            <span style="font-family: 'Grenze Gotisch'; font-weight: 500">Ritual</span>
-            <span style="font-family: 'Playfair Display'; font-style: italic">Moonlit</span>
-            <span style="font-family: 'Chakra Petch'; font-weight: 600; text-transform: uppercase">Neon Cult</span>
-            <span style="font-family: Caveat; font-weight: 700">Goodbye &amp; Good Riddance</span>
-            <span style="font-family: 'Tilt Warp'; text-transform: uppercase">Sundown</span>
-            <span style="font-family: Cinzel">Legends Never Die</span>
-            <span style="font-family: Silkscreen; text-transform: uppercase">Corrupt</span>
-            <span style="font-family: 'Young Serif'">dusk tape</span>
-            <span style="font-family: 'Cormorant Garamond'; font-style: italic">Velvet</span>
-            <span style="font-family: Anybody; font-stretch: 140%; font-weight: 300">cosmos</span>
-            <span style="font-family: 'Big Shoulders Display'; font-weight: 800; text-transform: uppercase">Neon Noir</span>
-            <span style="font-family: 'Instrument Serif'; font-style: italic">Midnight Editorial</span>
+      <section id="styles" class="styles" data-style="999">
+        <div class="section-head">
+          <h2>Every song gets its own world.</h2>
+          <p>
+            Open a song and sonara picks a look that fits it: the type, the colors, the layout and a living
+            scene behind the lyrics that answers every bass hit. A purple storm with real lightning for Juice
+            WRLD, a fire around the cover for rap, neon on a brick wall for late-night R&amp;B. Or pick one
+            yourself.
+          </p>
+        </div>
+        <div class="style-stage">
+          <img data-style-img src="assets/style-999.jpg" alt="The 999 style: a purple storm with forked lightning behind the music" />
+          <img data-style-next alt="" />
+        </div>
+        <div class="style-picker" role="tablist" aria-label="Styles">
+          <button role="tab" aria-selected="true" data-style-id="999" data-src="assets/style-999.jpg" data-alt="The 999 style: a purple storm with forked lightning behind the music" data-color="#8a6cff">
+            <span class="name" style="font-family: Saira; font-style: italic; font-weight: 800; font-stretch: 75%; text-transform: uppercase">999</span>
+            <span class="what">Storm and lightning on the bass</span>
+          </button>
+          <button role="tab" aria-selected="false" data-style-id="lit" data-src="assets/style-lit.jpg" data-alt="The Lit style: the cover held over a fire, sparks rising" data-color="#ff7a2f">
+            <span class="name" style="font-family: Anton; text-transform: uppercase">Lit</span>
+            <span class="what">The cover held over a fire</span>
+          </button>
+          <button role="tab" aria-selected="false" data-style-id="neon" data-src="assets/style-neon.jpg" data-alt="The Neon Sign style: the title in neon tubes on a dark brick wall" data-color="#ff4fa0">
+            <span class="name" style="font-family: 'Tilt Neon'">Neon Sign</span>
+            <span class="what">Your song in neon on brick</span>
+          </button>
+          <button role="tab" aria-selected="false" data-style-id="vinyl" data-src="assets/style-vinyl.jpg" data-alt="The Vinyl Room style: a record sliding out of its sleeve on a wood table" data-color="#d9a35b">
+            <span class="name" style="font-family: Fraunces; font-weight: 500">Vinyl Room</span>
+            <span class="what">A record sliding out of its sleeve</span>
+          </button>
+          <button role="tab" aria-selected="false" data-style-id="pinup" data-src="assets/style-pinup.jpg" data-alt="The Pin-up Cinema style: the cover as a grainy film still" data-color="#e2435a">
+            <span class="name" style="font-family: 'Bodoni Moda'; font-style: italic; font-weight: 600">Pin-up Cinema</span>
+            <span class="what">The cover as an old film still</span>
+          </button>
+          <button role="tab" aria-selected="false" data-style-id="aurora" data-src="assets/style-aurora.jpg" data-alt="The Aurora style: northern lights over a mountain lake" data-color="#3fe3a0">
+            <span class="name" style="font-family: Sora; font-weight: 200">aurora</span>
+            <span class="what">Northern lights over a lake</span>
+          </button>
+        </div>
+      </section>
+
+      <section id="sound" class="sound">
+        <div class="sound-copy">
+          <h2>Make it sound the way you hear it.</h2>
+          <p>
+            Slowed and reverb in one tap. Nightcore. A ten-band equalizer, bass boost, a reverb room, and
+            speed and pitch that don’t step on each other. It all plays live and stays the way you left it.
+          </p>
+          <div class="presets" role="radiogroup" aria-label="Try a preset">
+            <button role="radio" aria-checked="true" data-eq="0,0,0,0,0,0,0,0,0,0">Flat</button>
+            <button role="radio" aria-checked="false" data-eq="6,5,4,2,0,0,0,0,0,0">Bass boost</button>
+            <button role="radio" aria-checked="false" data-eq="2,2,1,0,0,0,-1,-2,-3,-4">Slowed and reverb</button>
+            <button role="radio" aria-checked="false" data-eq="1,1,0,0,0,0,1,2,2,1">Nightcore</button>
+            <button role="radio" aria-checked="false" data-eq="-2,-2,-1,1,3,4,3,1,0,-1">Vocals</button>
+            <button role="radio" aria-checked="false" data-eq="2,2,1,0,-1,-2,-4,-6,-8,-10">Lo-fi</button>
           </div>
         </div>
-        <div class="styles-copy">
-          <h2>33 styles. It picks the one that fits.</h2>
-          <p>
-            Play Juice WRLD and the room turns into a purple storm. TV Girl gets an old film reel, a Sinhala love
-            song gets moonlight on water, Cult Member gets a neon tunnel. sonara reads the artist, the genre and
-            the cover, then changes the type, the colors, the layout and the scene behind the lyrics. Same album,
-            same look, every time. Or open Styles next to the lyrics and pick one yourself, each previewed on
-            the song you're playing.
+        <div class="eq-card" aria-hidden="true">
+          <div class="eq">
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <div class="eq-labels"><span>31</span><span>62</span><span>125</span><span>250</span><span>500</span><span>1k</span><span>2k</span><span>4k</span><span>8k</span><span>16k</span></div>
+        </div>
+      </section>
+
+      <section id="features" class="features">
+        <div class="section-head">
+          <h2>Everything you listen to, in one app.</h2>
+          <p>sonara 2 is a new app around the same idea: music should look the way it sounds.</p>
+        </div>
+        <div class="bento">
+          <article class="tile tile-wide">
+            <h3>Four places, one search</h3>
+            <p>YouTube Music, any YouTube video, SoundCloud and the music on your computer. No ads, no account.</p>
+            <div class="chips"><span>YouTube Music</span><span>YouTube</span><span>SoundCloud</span><span>Your files</span></div>
+          </article>
+          <article class="tile">
+            <h3>Download in any format</h3>
+            <p>Title, artist, album and cover art are written into every file. Downloads play offline.</p>
+            <div class="chips small"><span>MP3</span><span>FLAC</span><span>Opus</span><span>WAV</span><span>M4A</span><span>Video</span></div>
+          </article>
+          <article class="tile">
+            <h3>Bring your playlists</h3>
+            <p>Paste a public Spotify, Apple Music, YouTube or SoundCloud link. The songs land in a playlist.</p>
+            <div class="link-demo" aria-hidden="true"><span data-typed></span><b class="caret"></b></div>
+          </article>
+          <article class="tile tile-tall tile-dark">
+            <h3>Lyrics that follow every word</h3>
+            <p>Synced word by word, with a translation under each line when you want one. The words never shake; the scene behind them does the moving.</p>
+            <div class="lyric-demo" aria-hidden="true">
+              <p class="line">every <span>word</span> lights up</p>
+              <p class="sub">cada palabra se ilumina</p>
+            </div>
+          </article>
+          <article class="tile">
+            <h3>Wrapped, whenever you want</h3>
+            <p>Your week, month, year or all time as a story you tap through.</p>
+            <img src="assets/app-wrapped.jpg" alt="sonara Wrapped" loading="lazy" />
+          </article>
+          <article class="tile">
+            <h3>Your files, untouched</h3>
+            <p>FLAC, MP3, WAV, OGG and M4A with their tags and art. Trim a song and save it with your sound baked in.</p>
+            <svg class="wave" viewBox="0 0 300 60" aria-hidden="true"><path d="M0 30 Q 10 8 20 30 T 40 30 T 60 30 T 80 30 T 100 30 T 120 30 T 140 30 T 160 30 T 180 30 T 200 30 T 220 30 T 240 30 T 260 30 T 280 30 T 300 30" /></svg>
+          </article>
+          <article class="tile">
+            <h3>Show it on Discord</h3>
+            <p>The song, the artist, the cover and the time left, on your profile.</p>
+            <div class="discord" aria-hidden="true">
+              <img src="icon.png" alt="" />
+              <div><b>Listening to sonara</b><span>Lucid Dreams</span><span>by Juice WRLD</span></div>
+            </div>
+          </article>
+          <article class="tile tile-full">
+            <h3>And the small things</h3>
+            <p>A mini player that stays on top, media keys and tray controls, Ctrl K to go anywhere, mixes made from your taste, crossfade, endless autoplay from your taste, and an app that updates itself.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="maker" class="maker">
+        <img src="assets/nimaa.jpg" alt="NiMAA, the maker of sonara, in a black hood holding a phone up to a mirror" loading="lazy" />
+        <div class="maker-copy">
+          <h2>Made by one person.</h2>
+          <p class="maker-name">
+            Designed and built for <a href="https://flinnzee.github.io/Zyntech/">ZynTECH</a> by
+            <button type="button" class="who" data-who aria-label="NiMAA, press for the full name">
+              <span>NiMAA</span><span>Theekshana Nirmal</span>
+            </button>
           </p>
-        </div>
-        <div class="thumbs" role="list">
-          <button role="listitem" data-pick="0"><img src="assets/style-999.jpg" alt="" loading="lazy" /><span>999</span></button>
-          <button role="listitem" data-pick="1"><img src="assets/style-pinup.jpg" alt="" loading="lazy" /><span>Pin-up Cinema</span></button>
-          <button role="listitem" data-pick="2"><img src="assets/style-ritual.jpg" alt="" loading="lazy" /><span>Ritual</span></button>
-          <button role="listitem" data-pick="3"><img src="assets/style-moonlit.jpg" alt="" loading="lazy" /><span>Moonlit</span></button>
-          <button role="listitem" data-pick="4"><img src="assets/style-neon-cult.jpg" alt="" loading="lazy" /><span>Neon Cult</span></button>
-          <button role="listitem" data-pick="5"><img src="assets/style-gbgr.jpg" alt="" loading="lazy" /><span>Goodbye &amp; Good Riddance</span></button>
-          <button role="listitem" data-pick="6"><img src="assets/style-sundown.jpg" alt="" loading="lazy" /><span>Sundown</span></button>
-          <button role="listitem" data-pick="7"><img src="assets/style-frost.jpg" alt="" loading="lazy" /><span>Frost</span></button>
-        </div>
-      </section>
-
-      <section id="features" class="feature">
-        <div class="feature-copy">
-          <h2>Backgrounds that hit with the beat.</h2>
           <p>
-            Behind the lyrics, a living scene listens to the music. In 999, lightning strikes on the big kicks and
-            branches across the clouds on every hi-hat. Embers flare, snow glints, a candle-lit sigil turns, film
-            flickers. The words themselves stay perfectly still and easy to read.
+            No company, no ads, nothing tracking you. sonara is made by someone who listens to a lot of music
+            and wanted every song to feel like its own place.
           </p>
-          <ul class="ticks">
-            <li>Lyrics synced word by word, with a fullscreen mode</li>
-            <li>Album styles built from the real Juice WRLD covers</li>
-            <li>Smooth at full frame rate, calm when the window is in the back</li>
-          </ul>
+          <div class="cta">
+            <a class="btn btn-line" href="https://github.com/FlinnZee">GitHub</a>
+            <a class="btn btn-line" href="https://flinnzee.github.io/Zyntech/">ZynTECH</a>
+          </div>
         </div>
-        <img class="shot" src="assets/style-ritual.jpg" alt="The Ritual style: a turning sigil, fog and candlelight" loading="lazy" />
       </section>
 
-      <section class="feature flip">
-        <div class="feature-copy">
-          <h2>It learns what you love.</h2>
-          <p>
-            Up next works the way it should: songs you queue play first, then the rest of the album, then picks
-            made for your taste so the music never stops. Home fills with mixes built around your favorite
-            artists, and new ones you'll probably like.
-          </p>
-          <ul class="ticks">
-            <li>Search shows results while you type</li>
-            <li>Songs start in seconds, the next ones are ready before you ask</li>
-            <li>Made for you mixes, top artists, artists to discover</li>
-          </ul>
+      <section id="download" class="download">
+        <h2>Get sonara.</h2>
+        <div class="dl-cards">
+          <article class="dl-card">
+            <h3>Windows</h3>
+            <p class="muted">Windows 10 and 11, 64-bit</p>
+            <p>One installer with everything inside, including the audio tools. It updates itself and works with your media keys.</p>
+            <div class="cta">
+              <a class="btn btn-ink" href="download.html">Download the installer</a>
+              <a class="text-link" data-portable href="https://github.com/FlinnZee/sonara-releases/releases/latest">Portable .zip</a>
+            </div>
+          </article>
+          <article class="dl-card quiet">
+            <h3>macOS and Linux</h3>
+            <p class="muted">Not yet</p>
+            <p>sonara is built and tested on Windows. Other systems may come later.</p>
+          </article>
         </div>
-        <img class="shot" src="assets/home.jpg" alt="sonara Home with mixes made for your taste" loading="lazy" />
+        <p class="note">
+          The first time, Windows may show a blue SmartScreen box. Choose More info, then Run anyway; sonara
+          isn’t signed with a paid certificate yet.
+        </p>
       </section>
 
-      <section id="wrapped" class="feature">
-        <div class="feature-copy">
-          <h2>Wrapped, whenever you want it.</h2>
-          <p>
-            Your week, month, year or all time as a story you tap through. Guess your number one before it's
-            revealed, see your listening clock, meet your sound persona, and save the card. It plays a different
-            cut every time you open it.
-          </p>
-        </div>
-        <img class="shot" src="assets/wrapped.jpg" alt="sonara Wrapped with minutes listened and your sound persona" loading="lazy" />
-      </section>
-
-      <section class="grid-list" aria-label="More">
-        <div><h3>No ads, no accounts</h3><p>Nothing to sign up for. No tracking. Your library lives on your computer.</p></div>
-        <div><h3>Made for every language</h3><p>Sinhala, Hindi and Tamil lyrics render properly, with styles made for love songs.</p></div>
-        <div><h3>Updates itself</h3><p>New versions download in the background. One click to restart.</p></div>
-        <div><h3>Mini player and media keys</h3><p>A small always-on-top player, tray controls and global shortcuts.</p></div>
-        <div><h3>Your playlists, anywhere</h3><p>Import from YouTube links or a Spotify and Apple Music export.</p></div>
-        <div><h3>Command palette</h3><p>Ctrl K to search, jump anywhere, or change the style.</p></div>
-      </section>
-
-      <section class="install" aria-labelledby="install-title">
-        <h2 id="install-title">Three clicks to music.</h2>
-        <ol>
-          <li><strong>Download</strong> the installer for Windows.</li>
-          <li><strong>Run it.</strong> If Windows shows a blue SmartScreen box, choose More info, then Run anyway.</li>
-          <li><strong>Search and play.</strong> The first launch takes about a minute while sonara sets itself up.</li>
-        </ol>
-        <a class="btn" href="download.html">Download for Windows</a>
+      <section id="faq" class="faq">
+        <h2>Questions</h2>
+        <details><summary>Is sonara free?</summary><p>Yes. No subscription, no paid tier, no ads.</p></details>
+        <details><summary>Do I need an account?</summary><p>No. Install it and press play. It doesn’t ask you to sign in and doesn’t collect what you listen to.</p></details>
+        <details><summary>Can it play my own music files?</summary><p>Yes. Add a folder and sonara reads FLAC, MP3, WAV, OGG and M4A with their tags and cover art. It never moves or changes the files, and a .lrc file next to a song becomes its lyrics.</p></details>
+        <details><summary>Does it work offline?</summary><p>Downloaded songs and your own files play without a connection.</p></details>
+        <details><summary>How do I bring my Spotify playlists?</summary><p>Paste the link to a public playlist into the search box or the Import page. sonara finds each song and lets you check the matches before saving.</p></details>
+        <details><summary>Does it handle Sinhala, Tamil and Hindi lyrics?</summary><p>Yes, they render properly, and there are styles made for love songs. Turn on translation to read a line in another language under each lyric.</p></details>
+        <details><summary>Will my old version update?</summary><p>Yes. Installed copies download the new version in the background and ask to restart.</p></details>
       </section>
     </main>
 
     <footer class="foot">
-      <p>
-        Designed and built by <a href="https://github.com/FlinnZee">NiMAA</a> for
-        <a href="https://flinnzee.github.io/Zyntech/">ZynTECH</a>.
+      <p class="foot-brand">
+        <svg class="mark" viewBox="0 0 1024 1024" aria-hidden="true">
+          <circle cx="470" cy="554" r="214" />
+          <path d="M852.5 376.9A356 356 0 1 1 647.4 171.5" />
+          <circle class="dot" cx="420" cy="604" r="98" />
+        </svg>
+        sonara
       </p>
-      <p class="fine">sonara plays music from YouTube Music and lyrics from LRCLIB. Free for personal use.</p>
+      <p class="foot-links">
+        <span>Made by <a href="https://github.com/FlinnZee">NiMAA</a> for <a href="https://flinnzee.github.io/Zyntech/">ZynTECH</a></span>
+        <a href="https://github.com/FlinnZee/sonara-releases/releases">Releases</a>
+      </p>
+      <p class="fine">sonara plays music from YouTube Music, YouTube and SoundCloud, and lyrics from LRCLIB. For personal use.</p>
     </footer>
     <script src="site.js" defer></script>
   </body>
