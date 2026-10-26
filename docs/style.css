@@ -737,6 +737,23 @@ section {
   font-size: 19px;
   max-width: 44ch;
 }
+.maker-copy .island {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 16px;
+}
+.island svg {
+  width: 30px;
+  flex: none;
+  fill: color-mix(in oklab, var(--violet) 14%, transparent);
+  stroke: var(--violet);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+.island strong {
+  color: var(--ink);
+}
 .maker-copy .maker-name {
   color: var(--ink);
   font-size: 24px;
