@@ -132,7 +132,7 @@
   const who = document.querySelector('[data-who]')
   who?.addEventListener('click', () => {
     who.classList.toggle('full')
-    who.setAttribute('aria-label', who.classList.contains('full') ? 'Theekshana Nirmal (NiMAA)' : 'NiMAA, press for the full name')
+    who.setAttribute('aria-label', who.classList.contains('full') ? 'dr.v0id (NiMAA)' : 'NiMAA, press for the other name')
   })
 
   // ---------------------------------------------------------------- reveals
