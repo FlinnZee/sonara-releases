@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Downloading sonara</title>
+    <title>Downloading hidara</title>
     <meta name="theme-color" content="#f6f6f9" />
     <link rel="icon" href="icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -16,13 +16,13 @@
   </head>
   <body>
     <header class="nav">
-      <a class="brand" href="./" aria-label="sonara home">
+      <a class="brand" href="./" aria-label="hidara home">
         <svg class="mark" viewBox="0 0 1024 1024" aria-hidden="true">
           <circle cx="470" cy="554" r="214" />
           <path d="M852.5 376.9A356 356 0 1 1 647.4 171.5" />
           <circle class="dot" cx="420" cy="604" r="98" />
         </svg>
-        <span>sonara</span>
+        <span>hidara</span>
       </a>
       <a class="btn btn-line btn-small" href="./">Back to the site</a>
     </header>
@@ -43,7 +43,7 @@
             <circle class="dot" cx="420" cy="604" r="98" />
           </svg>
         </div>
-        <h1 data-title>Getting sonara ready…</h1>
+        <h1 data-title>Getting hidara ready…</h1>
         <p class="status" data-status>Finding the latest version.</p>
         <div class="steps">
           <div><strong>Open the installer</strong>It’s in your Downloads folder.</div>
@@ -59,7 +59,7 @@
         const status = document.querySelector('[data-status]')
         const again = document.querySelector('[data-again]')
         const link = document.querySelector('[data-link]')
-        const fallback = 'https://github.com/FlinnZee/sonara-releases/releases/latest'
+        const fallback = 'https://github.com/FlinnZee/hidara-releases/releases/latest'
         const start = (url, text) => {
           link.href = url
           title.textContent = 'Your download is starting.'
@@ -67,13 +67,13 @@
           again.hidden = false
           location.href = url
         }
-        fetch('https://api.github.com/repos/FlinnZee/sonara-releases/releases/latest')
+        fetch('https://api.github.com/repos/FlinnZee/hidara-releases/releases/latest')
           .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
           .then((rel) => {
             const asset = rel.assets.find((a) => a.name.endsWith('-setup.exe'))
             if (!asset) throw new Error('no installer')
             const mb = Math.round(asset.size / 1048576)
-            start(asset.browser_download_url, `sonara ${rel.tag_name.replace(/^v/, '')} for Windows, ${mb} MB.`)
+            start(asset.browser_download_url, `hidara ${rel.tag_name.replace(/^v/, '')} for Windows, ${mb} MB.`)
           })
           .catch(() => {
             title.textContent = 'Almost there.'

@@ -1,7 +1,7 @@
-// sonara website: live numbers from GitHub, the style switcher, the EQ demo,
+// hidara website: live numbers from GitHub, the style switcher, the EQ demo,
 // the playlist-link typing demo, the maker's full name, and quiet reveals.
 ;(() => {
-  const RELEASES = 'https://api.github.com/repos/FlinnZee/sonara-releases/releases'
+  const RELEASES = 'https://api.github.com/repos/FlinnZee/hidara-releases/releases'
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches
 
   // ---------------------------------------------------------------- numbers
